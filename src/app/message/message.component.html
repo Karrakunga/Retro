@@ -1,0 +1,6 @@
+<div class="panel-body">
+	<textarea [(ngModel)]="message.text" class="form-control" rows="3"></textarea>
+	<button *ngIf="!message.published" class="btn" (click)="publish()">Publish</button>
+  <button *ngIf="message.published" class="btn" (click)="vote()">Vote</button>
+	<span class="badge">{{message.votes}}</span>
+</div>

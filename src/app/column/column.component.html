@@ -1,0 +1,9 @@
+<div>
+	<h1>{{column.title}}</h1>
+
+	<div class="row"><button class="btn" (click)="addMessage()">+</button></div>
+
+	<div *ngFor="let message of column.messages" class="panel panel-default">
+		<app-message [message]="message"></app-message>
+	</div>
+</div>

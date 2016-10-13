@@ -1,0 +1,15 @@
+<div class="container">
+	<p>
+		login works!
+	</p>
+	<form>
+		<div class="form-group">
+			<label for="room">Room</label>{{room}}
+			<input name="room" type="text" class="form-control" [(ngModel)]="room" id="room" placeholder="Panic">
+		</div>
+		<div class="form-group">
+			<a [routerLink]="['/rooms', room]" routerLinkActive="active" class="btn">Create</a>
+			<button class="btn">Join</button>
+		</div>
+	</form>
+</div>
