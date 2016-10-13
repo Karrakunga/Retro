@@ -11,6 +11,19 @@ import { MessageComponent } from './message/message.component';
 import { MessagesComponent } from './messages/messages.component';
 import { ColumnComponent } from './column/column.component';
 
+import {RoomStoreService} from './room-store.service';
+
+import { AngularFireModule } from 'angularfire2';
+
+export const firebaseConfig = {
+ apiKey: "AIzaSyDJqaGhcougzwcmRUs_x5O00SiU9Y43OJA",
+    authDomain: "retro-c4024.firebaseapp.com",
+    databaseURL: "https://retro-c4024.firebaseio.com",
+    storageBucket: "retro-c4024.appspot.com",
+    messagingSenderId: "580291218857"
+};
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,9 +37,10 @@ import { ColumnComponent } from './column/column.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    routing
+    routing,
+    AngularFireModule.initializeApp(firebaseConfig)
   ],
-  providers: [],
+  providers: [RoomStoreService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

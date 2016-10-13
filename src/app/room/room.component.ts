@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import {RoomStoreService} from '../room-store.service';
 
 @Component({
   selector: 'app-room',
@@ -8,10 +10,14 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class RoomComponent implements OnInit {
   room: string;
-  columns: any[] = [{title: 'Mad', messages: [{text: 'Network !!!', votes: 2, published: false},
-                      {text: 'Car packing is terrible !', votes: 4, published: false}]}, {title: 'Sad', messages: []} ];
+//  columns: any[] = [{title: 'Mad', messages: [{text: 'Network !!!', votes: 2, published: false},
+//                      {text: 'Car packing is terrible !', votes: 4, published: false}]}, {title: 'Sad', messages: []} ];
+ 
+ columns: FirebaseListObservable<any>;
   newColumn: string = 'Glad';
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, store: RoomStoreService) { 
+      this.columns = store.columns;
+  }
 
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
