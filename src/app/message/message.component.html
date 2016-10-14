@@ -1,6 +1,6 @@
 <div class="panel-body">
-	<textarea [(ngModel)]="message.text" class="form-control" rows="3"></textarea>
-	<button *ngIf="!message.published" class="btn" (click)="publish()">Publish</button>
-  <button *ngIf="message.published" class="btn" (click)="vote()">Vote</button>
+	<textarea [ngModel]="message.text"  (ngModelChange)="updateMessage(message.$key, $event) " class="form-control" rows="3"></textarea>
+	<button *ngIf="!message.published" class="btn" (click)="publish(message.$key)">Publish</button>
+  <button *ngIf="message.published" class="btn" (click)="vote(message.$key)">Vote</button>
 	<span class="badge">{{message.votes}}</span>
 </div>

@@ -8,8 +8,8 @@ columns: FirebaseListObservable<any>;
       this.columns = af.database.list('/items');
   }
   
-  getColumn(title){
-      return this.af.database.object('/column/' + title);
+  getMessages(title){
+      return this.af.database.list('/messages/' + title);
   }
 
 }

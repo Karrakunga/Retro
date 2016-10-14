@@ -3,7 +3,7 @@
 
 	<div class="row"><button class="btn" (click)="addMessage()">+</button></div>
 
-	<div *ngFor="let message of (columnStore | async)?.messages" class="panel panel-default">
-		<app-message [message]="message"></app-message>
+	<div *ngFor="let message of messages | async" class="panel panel-default">
+		<app-message [message]="message" [column]="column.title"></app-message>
 	</div>
 </div>

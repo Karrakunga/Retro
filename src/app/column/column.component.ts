@@ -8,23 +8,18 @@ import {RoomStoreService} from '../room-store.service';
 })
 export class ColumnComponent implements OnInit {
   @Input() column;
-  columnStore;
+
   messages;
   constructor(private store : RoomStoreService) { 
       
   }
 
   ngOnInit() {
-      this.columnStore = this.store.getColumn(this.column.title);
+      this.messages = this.store.getMessages(this.column.title);
   }
 
   addMessage() {
-      console.log(this.columnStore);
-
-      if (this.columnStore.messages === undefined){
-          this.columnStore.set({messages: []});
-      }
-      this.columnStore.child("messages").push({text: '', votes: 0, published: false});
+      this.messages.push({text: '', votes: 0, published: false});
   }
 
 }

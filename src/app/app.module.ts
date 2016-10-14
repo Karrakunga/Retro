@@ -1,3 +1,5 @@
+
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -14,7 +16,6 @@ import { ColumnComponent } from './column/column.component';
 import {RoomStoreService} from './room-store.service';
 
 import { AngularFireModule } from 'angularfire2';
-
 export const firebaseConfig = {
  apiKey: "AIzaSyDJqaGhcougzwcmRUs_x5O00SiU9Y43OJA",
     authDomain: "retro-c4024.firebaseapp.com",

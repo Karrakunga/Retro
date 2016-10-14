@@ -3,7 +3,7 @@
 		<input class="form-control" [(ngModel)]="newColumn">
 		<button class="btn" (click)="addColumn()">+</button>
 	</div>
-	<div [ngClass]="getStreamClass()" *ngFor="let column of columns | async">
+	<div [ngClass]="columnClass" *ngFor="let column of columns | async">
 		<app-column [column]="column"></app-column>
 	</div>
 </div>
