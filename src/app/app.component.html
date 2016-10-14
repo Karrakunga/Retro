@@ -1,4 +1,6 @@
-<h1>
-	{{title}}
-	<router-outlet></router-outlet>
-</h1>
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+		<a class="navbar-brand" [routerLink]="['/']" routerLinkActive="active">{{title}}</a>
+	</div>
+</nav>
+<router-outlet></router-outlet>

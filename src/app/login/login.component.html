@@ -1,15 +1,12 @@
 <div class="container">
-	<p>
-		login works!
-	</p>
-	<form>
+	<form (ngSubmit)="onSubmit()" #roomForm="ngForm">
 		<div class="form-group">
-			<label for="room">Room</label>{{room}}
-			<input name="room" type="text" class="form-control" [(ngModel)]="room" id="room" placeholder="Panic">
+			<label for="room">Room</label>
+			<input required name="room" type="text" class="form-control" [(ngModel)]="room" id="room" placeholder="Panic" #roomTemp="ngModel">
+			<div [hidden]="roomTemp.valid || roomTemp.pristine" class="alert alert-danger">
+				Room is required
+			</div>
 		</div>
-		<div class="form-group">
-			<a [routerLink]="['/rooms', room]" routerLinkActive="active" class="btn">Create</a>
-			<button class="btn">Join</button>
-		</div>
+		<button type="submit" class="btn btn-default" [disabled]="!roomForm.form.valid">Create/Join</button>
 	</form>
 </div>

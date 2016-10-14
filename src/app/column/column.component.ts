@@ -8,14 +8,13 @@ import {RoomStoreService} from '../room-store.service';
 })
 export class ColumnComponent implements OnInit {
   @Input() column;
-
+  @Input() room;
   messages;
-  constructor(private store : RoomStoreService) { 
-      
+  constructor(private store: RoomStoreService) {
   }
 
   ngOnInit() {
-      this.messages = this.store.getMessages(this.column.title);
+      this.messages = this.store.getMessages(this.room, this.column.title);
   }
 
   addMessage() {

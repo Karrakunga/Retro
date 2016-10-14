@@ -17,19 +17,26 @@ export class RoomComponent implements OnInit {
   newColumn: string = 'Glad';
 
   columnClass = 'col-md-12 col-lg-12';
-  constructor(private route: ActivatedRoute, store: RoomStoreService) {
-    this.columns = store.columns;
-    this.columns.subscribe((values) => { console.log(values); this.getStreamClass(+values.length) });
+  constructor(private route: ActivatedRoute, private store: RoomStoreService) {
+
   }
 
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
       this.room = params['room'];
     });
+
+    this.columns = this.store.getRoom(this.room);
+    this.columns.subscribe((values) => { this.getStreamClass(+values.length) });
   }
 
   addColumn(event) {
     this.columns.push({ title: this.newColumn, messages: [] });
+  }
+
+  delete(key: string, title: string) {
+    this.columns.remove(key);
+    this.store.deleteMessages(this.room, title);
   }
 
   getStreamClass = function (length: number) {

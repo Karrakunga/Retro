@@ -2,8 +2,10 @@
 	<div class="row">
 		<input class="form-control" [(ngModel)]="newColumn">
 		<button class="btn" (click)="addColumn()">+</button>
+		
 	</div>
 	<div [ngClass]="columnClass" *ngFor="let column of columns | async">
-		<app-column [column]="column"></app-column>
+		<app-column [column]="column" [room]="room"></app-column>
+		<button  class="btn" (click)="delete(column.$key, column.title)">Delete</button>
 	</div>
 </div>

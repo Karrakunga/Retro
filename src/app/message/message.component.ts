@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {RoomStoreService} from '../room-store.service';
+import { RoomStoreService } from '../room-store.service';
 
 @Component({
   selector: 'app-message',
@@ -9,24 +9,32 @@ import {RoomStoreService} from '../room-store.service';
 export class MessageComponent implements OnInit {
   @Input() message;
   @Input() column;
+  @Input() room;
   messages;
-  constructor(private store : RoomStoreService) { 
-      
+  constructor(private store: RoomStoreService) {
+
   }
 
   ngOnInit() {
-      this.messages = this.store.getMessages(this.column);
+    this.messages = this.store.getMessages(this.room, this.column);
   }
 
   publish(key: string) {
     this.messages.update(key, { published: true });
+    this.message.published = true;
   }
 
-  vote(key: string){
-    this.messages.update(key, { votes: this.message.votes? this.message.votes + 1: this.message.votes = 1 });
+  delete(key: string) {
+    this.messages.remove(key);
   }
 
-  updateMessage(key, event){
-    this.messages.update(key, { text: event });
+  vote(key: string) {
+    this.messages.update(key, { votes: this.message.votes ? this.message.votes + 1 : this.message.votes = 1 });
+  }
+
+  updateMessage(key, event) {
+    if (this.message.published) {
+      this.messages.update(key, { text: event });
+    }
   }
 }

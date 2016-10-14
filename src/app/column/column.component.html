@@ -4,6 +4,6 @@
 	<div class="row"><button class="btn" (click)="addMessage()">+</button></div>
 
 	<div *ngFor="let message of messages | async" class="panel panel-default">
-		<app-message [message]="message" [column]="column.title"></app-message>
+		<app-message [message]="message" [column]="column.title" [room]="room"></app-message>
 	</div>
 </div>
