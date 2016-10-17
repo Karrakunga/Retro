@@ -11,12 +11,14 @@ export class MessageComponent implements OnInit {
   @Input() column;
   @Input() room;
   messages;
+  discussMode = false;
   constructor(private store: RoomStoreService) {
 
   }
 
   ngOnInit() {
     this.messages = this.store.getMessages(this.room, this.column);
+    this.store.discussMode$.subscribe(next => { this.discussMode = next });
   }
 
   publish(key: string) {
@@ -30,11 +32,16 @@ export class MessageComponent implements OnInit {
 
   vote(key: string) {
     this.messages.update(key, { votes: this.message.votes ? this.message.votes + 1 : this.message.votes = 1 });
-  }
+  } 
 
   updateMessage(key, event) {
     if (this.message.published) {
       this.messages.update(key, { text: event });
     }
+  }
+
+  select(key: string){
+    this.store.selectMessage(this.message.text, this.message.votes);
+    this.message.selected = true;
   }
 }

@@ -10,12 +10,9 @@ import { RoomStoreService } from '../room-store.service';
 })
 export class RoomComponent implements OnInit {
   room: string;
-  //  columns: any[] = [{title: 'Mad', messages: [{text: 'Network !!!', votes: 2, published: false},
-  //                      {text: 'Car packing is terrible !', votes: 4, published: false}]}, {title: 'Sad', messages: []} ];
-
   columns: FirebaseListObservable<any>;
   newColumn: string = 'Glad';
-
+  discussMode = false;
   columnClass = 'col-md-12 col-lg-12';
   constructor(private route: ActivatedRoute, private store: RoomStoreService) {
 
@@ -28,16 +25,18 @@ export class RoomComponent implements OnInit {
 
     this.columns = this.store.getRoom(this.room);
     this.columns.subscribe((values) => { this.getStreamClass(+values.length) });
+    this.store.discussMode$.subscribe(next => { this.discussMode = next });
+  }
+
+  setDiscussMode() {
+    this.store.setDiscussMode();
   }
 
   addColumn(event) {
     this.columns.push({ title: this.newColumn, messages: [] });
   }
 
-  delete(key: string, title: string) {
-    this.columns.remove(key);
-    this.store.deleteMessages(this.room, title);
-  }
+
 
   getStreamClass = function (length: number) {
 

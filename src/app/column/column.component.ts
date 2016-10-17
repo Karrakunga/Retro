@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {RoomStoreService} from '../room-store.service';
+import { RoomStoreService } from '../room-store.service';
 
 @Component({
   selector: 'app-column',
@@ -14,11 +14,16 @@ export class ColumnComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.messages = this.store.getMessages(this.room, this.column.title);
+    this.messages = this.store.getMessages(this.room, this.column.title);
   }
 
   addMessage() {
-      this.messages.push({text: '', votes: 0, published: false});
+    this.messages.push({ text: '', votes: 0, published: false });
+  }
+
+  delete(key: string, title: string) {
+    
+    this.store.deleteColumn(this.room, title, key);
   }
 
 }
