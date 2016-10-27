@@ -13,16 +13,28 @@ import { MessageComponent } from './message/message.component';
 import { MessagesComponent } from './messages/messages.component';
 import { ColumnComponent } from './column/column.component';
 
-import {RoomStoreService} from './room-store.service';
+import { RoomStoreService } from './room-store.service';
+import { AuthService } from './auth.service';
+import { CanActivateViaAuthGuard} from './CanActivateViaAuthGuard';
 
-import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
+import { DiscussComponent } from './discuss/discuss.component';
+import { HomeComponent } from './home/home.component';
+import { RegisterComponent } from './register/register.component';
+
 export const firebaseConfig = {
- apiKey: "AIzaSyDJqaGhcougzwcmRUs_x5O00SiU9Y43OJA",
-    authDomain: "retro-c4024.firebaseapp.com",
-    databaseURL: "https://retro-c4024.firebaseio.com",
-    storageBucket: "retro-c4024.appspot.com",
-    messagingSenderId: "580291218857"
+  apiKey: "AIzaSyDJqaGhcougzwcmRUs_x5O00SiU9Y43OJA",
+  authDomain: "retro-c4024.firebaseapp.com",
+  databaseURL: "https://retro-c4024.firebaseio.com",
+  storageBucket: "retro-c4024.appspot.com",
+  messagingSenderId: "580291218857"
 };
+
+const myFirebaseAuthConfig = {
+  provider: AuthProviders.Password,
+  method: AuthMethods.Password,
+};
+
 
 
 @NgModule({
@@ -32,16 +44,19 @@ export const firebaseConfig = {
     RoomComponent,
     MessageComponent,
     MessagesComponent,
-    ColumnComponent
+    ColumnComponent,
+    DiscussComponent,
+    HomeComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     routing,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig)
   ],
-  providers: [RoomStoreService],
+  providers: [RoomStoreService, CanActivateViaAuthGuard, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

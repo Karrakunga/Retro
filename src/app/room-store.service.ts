@@ -24,16 +24,21 @@ export class RoomStoreService {
     }
 
     deleteColumn(room, title, key) {
-        this.af.database.list('/rooms/' + room).remove(key);;
+        this.af.database.list('/rooms/' + room).remove(key);
         this.af.database.list(`/${room}'/messages/'${title}`).remove();
     }
 
     setDiscussMode() {
         this._discussModeObserver.next(true);
     }
-
+selectedMessages = [];
     selectMessage(message: string, votes: number) {
+        this.selectedMessages.push({message: message, votes: votes});
             console.log(message, votes);
+    }
+
+    getSelectedMessages() {
+        return this.selectedMessages;
     }
 
 }
