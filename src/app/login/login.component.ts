@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFire } from 'angularfire2';
-import {AuthService} from '../auth.service';
+import { AuthService } from '../auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   email;
   password;
   warningMessage: string;
-
+  name: string;
   constructor(private router: Router, public af: AngularFire, private authService: AuthService) { }
 
   ngOnInit() {
@@ -23,10 +23,11 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmitRegister() {
-    this.af.auth.createUser({
-      email: this.email,
-      password: this.password,
-    }).then(() => {
+    this.authService.createUser(
+      this.email,
+      this.password,
+      this.name
+    ).then(() => {
       this.submitted = true;
       this.router.navigate(['/rooms', this.room]);
     }).catch((error) => {
@@ -36,10 +37,10 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmitLogin() {
-    this.af.auth.login({
-      email: this.email,
-      password: this.password,
-    }).then(() => {
+    this.authService.signIn(
+      this.email,
+      this.password
+    ).then(() => {
       this.submitted = true;
       this.router.navigate([this.authService.redirectUrl]);
     })

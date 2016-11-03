@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { RoomStoreService } from '../room-store.service';
-
+import { AuthService } from '../auth.service';
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
@@ -12,7 +12,7 @@ export class MessageComponent implements OnInit {
   @Input() room;
   messages;
   discussMode = false;
-  constructor(private store: RoomStoreService) {
+  constructor(private store: RoomStoreService, public auth: AuthService) {
 
   }
 
@@ -32,15 +32,13 @@ export class MessageComponent implements OnInit {
 
   vote(key: string) {
     this.messages.update(key, { votes: this.message.votes ? this.message.votes + 1 : this.message.votes = 1 });
-  } 
-
-  updateMessage(key, event) {
-    if (this.message.published) {
-      this.messages.update(key, { text: event });
-    }
   }
 
-  select(key: string){
+  updateMessage(key, event) {
+      this.messages.update(key, { text: event });
+  }
+
+  select(key: string) {
     this.store.selectMessage(this.message.text, this.message.votes);
     this.message.selected = true;
   }

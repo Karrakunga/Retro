@@ -1,4 +1,3 @@
-<div> {{ (af.auth | async)?.uid }} </div>
 
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
@@ -6,8 +5,8 @@
 			<a class="navbar-brand" [routerLink]="['/']" routerLinkActive="active">{{title}}</a>
 		</div>
 		<div class="nav navbar-nav navbar-right">
-			<button type="button" class="btn btn-default navbar-btn" (click)="login()">Sign In</button>
-			<button type="button" class="btn btn-default navbar-btn" (click)="logout()">Sign Out</button>
+			<p *ngIf="(af.auth | async)?.uid" class="navbar-text">Hello user id {{(af.auth | async)?.uid}} </p>
+			<button *ngIf="(af.auth | async)?.uid" type="button" class="btn btn-default navbar-btn" (click)="logout()">Sign Out</button>
 		</div>
 	</div>
 </nav>
