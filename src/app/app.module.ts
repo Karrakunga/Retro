@@ -21,6 +21,7 @@ import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
 import { DiscussComponent } from './discuss/discuss.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
+import { PublishedPipe } from './published.pipe';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyDJqaGhcougzwcmRUs_x5O00SiU9Y43OJA",
@@ -47,7 +48,8 @@ const myFirebaseAuthConfig = {
     ColumnComponent,
     DiscussComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    PublishedPipe
   ],
   imports: [
     BrowserModule,
