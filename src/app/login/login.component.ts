@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
       this.name
     ).then(() => {
       this.submitted = true;
-      this.router.navigate(['/rooms', this.room]);
+      this.router.navigate([this.authService.redirectUrl]);
     }).catch((error) => {
       this.warningMessage = error.message;
       console.log(error);
