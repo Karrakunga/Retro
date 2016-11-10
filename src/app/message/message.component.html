@@ -1,8 +1,9 @@
-<div  class="panel-body" [ngClass]="{'selected': message.selected}">
-	<textarea #messageBox [(ngModel)]="message.text"  (blur)="updateMessage(message.$key, messageBox.value) " class="form-control" rows="3"></textarea>
+<div  dnd-droppable (onDropSuccess)="dragOver($event, message.$key)"  class="panel-body" [ngClass]="{'selected': message.selected}">
+	<textarea #messageBox [(ngModel)]="message.text" (blur)="updateMessage(message.$key, messageBox.value) " class="form-control"
+		rows="3"></textarea>
 	<button *ngIf="!message.published && !discussMode" class="btn" (click)="publish(message.$key)">Publish</button>
-  <button *ngIf="message.published  && !discussMode" class="btn" (click)="vote(message.$key)">Vote</button>
-	<button  class="btn" (click)="delete(message.$key)">Delete</button>
-	<button *ngIf="discussMode"  class="btn" (click)="select(message.$key)">Select</button>
+	<button *ngIf="message.published  && !discussMode" class="btn" (click)="vote(message.$key)">Vote</button>
+	<button class="btn" (click)="delete(message.$key)">Delete</button>
+	<button *ngIf="discussMode" class="btn" (click)="select(message.$key)">Select</button>
 	<span class="badge">{{message.votes}}</span>
 </div>

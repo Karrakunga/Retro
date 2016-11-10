@@ -35,11 +35,19 @@ export class MessageComponent implements OnInit {
   }
 
   updateMessage(key, event) {
-      this.messages.update(key, { text: event });
+    this.messages.update(key, { text: event });
   }
 
   select(key: string) {
     this.store.selectMessage(this.message.text, this.message.votes);
     this.message.selected = true;
+  }
+
+  dragOver($event, key) {
+    this.messages.update(key, { text: this.message.text + '\n' + $event.dragData.text });
+
+     setTimeout ( () => {
+     this.messages.remove($event.dragData.$key);
+    }, 200);
   }
 }

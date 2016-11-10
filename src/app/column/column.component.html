@@ -3,7 +3,8 @@
 	<button class="btn" (click)="delete(column.$key, column.title)">Delete</button>
 	<div class="row"><button class="btn" (click)="addMessage()">+</button></div>
 
-	<div *ngFor="let message of messages | async | published" class="panel panel-default">
+	<div  [dragEnabled]="true" dnd-draggable (onDragSuccess)="dragOver($event)" [dragEnabled]="true" [dragData]="message" 
+	 *ngFor="let message of messages | async | published" class="panel panel-default">
 		<app-message [message]="message" [column]="column.title" [room]="room"></app-message>
 	</div>
 </div>

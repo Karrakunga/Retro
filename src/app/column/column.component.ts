@@ -26,4 +26,8 @@ export class ColumnComponent implements OnInit {
     this.store.deleteColumn(this.room, title, key);
   }
 
+  dragOver($event){
+   
+
+  }
 }

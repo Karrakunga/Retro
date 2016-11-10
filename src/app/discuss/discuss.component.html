@@ -1,5 +1,5 @@
 <h1>Tasks</h1>
-<ul *ngFor="let message of selectedMessages">
+<ul dnd-droppable *ngFor="let message of selectedMessages">
 	<li>
 		<span class="badge">{{message.votes}}</span> {{message.message}}
 		<textarea #messageBox [(ngModel)]="message.comments"  class="form-control" rows="3"></textarea>
