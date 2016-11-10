@@ -12,6 +12,7 @@ export class MessageComponent implements OnInit {
   @Input() room;
   messages;
   discussMode = false;
+  dropEnabled = true;
   constructor(private store: RoomStoreService, public auth: AuthService) {
 
   }
@@ -20,6 +21,10 @@ export class MessageComponent implements OnInit {
     this.messages = this.store.getMessages(this.room, this.column);
     this.store.discussMode$.subscribe(next => { this.discussMode = next });
   }
+
+merge(){
+  this.dropEnabled = false;
+}
 
   publish(key: string) {
     this.messages.update(key, { published: true });
@@ -46,8 +51,10 @@ export class MessageComponent implements OnInit {
   dragOver($event, key) {
     this.messages.update(key, { text: this.message.text + '\n' + $event.dragData.text });
 
-     setTimeout ( () => {
-     this.messages.remove($event.dragData.$key);
-    }, 200);
+
+  }
+
+  onDragSucess(key){
+     this.messages.remove(key);
   }
 }

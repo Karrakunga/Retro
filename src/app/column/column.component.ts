@@ -27,7 +27,6 @@ export class ColumnComponent implements OnInit {
   }
 
   dragOver($event){
-   
 
   }
 }
