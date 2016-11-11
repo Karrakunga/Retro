@@ -8,14 +8,14 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./column.component.scss']
 })
 export class ColumnComponent implements OnInit {
-  @Input() column;
-  @Input() room;
+  @Input() columnId;
+  @Input() roomId;
   messages;
   constructor(private store: RoomStoreService, private af: AngularFire, private auth: AuthService) {
   }
 
   ngOnInit() {
-    this.messages = this.store.getMessages(this.room, this.column.title);
+    this.messages = this.store.getMessages(this.roomId, this.columnId);
   }
 
   addMessage() {
@@ -23,7 +23,7 @@ export class ColumnComponent implements OnInit {
   }
 
   delete(key: string, title: string) {
-    this.store.deleteColumn(this.room, title, key);
+    this.store.deleteColumn(this.roomId, title, key);
   }
 
   dragOver($event){

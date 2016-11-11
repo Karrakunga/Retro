@@ -9,8 +9,9 @@ import { RoomStoreService } from '../room-store.service';
   styleUrls: ['./room.component.scss']
 })
 export class RoomComponent implements OnInit {
-  room: string;
-  columns: FirebaseListObservable<any>;
+  roomName: string;
+  room;
+  columns;
   newColumn: string = 'Glad';
   discussMode = false;
   columnClass = 'col-md-12 col-lg-12';
@@ -20,11 +21,15 @@ export class RoomComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
-      this.room = params['room'];
+      this.roomName = params['room'];
     });
 
-    this.columns = this.store.getRoom(this.room);
-    this.columns.subscribe((values) => { this.getStreamClass(+values.length) });
+    this.store.getRoom(this.roomName).subscribe(rooms => {
+      this.room = rooms[0];
+      this.columns = this.store.getColumns(rooms[0].$key);
+      this.columns.subscribe((values) => { this.getStreamClass(+values.length) });
+    });
+    
     this.store.discussMode$.subscribe(next => { this.discussMode = next });
   }
 

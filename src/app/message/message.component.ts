@@ -50,8 +50,6 @@ merge(){
 
   dragOver($event, key) {
     this.messages.update(key, { text: this.message.text + '\n' + $event.dragData.text });
-
-
   }
 
   onDragSucess(key){
