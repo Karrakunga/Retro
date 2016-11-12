@@ -1,13 +1,11 @@
 
-<nav class="navbar navbar-default navbar-fixed-top">
-	<div class="container">
-		<div class="navbar-header">
+<nav class="navbar navbar-light bg-faded">
 			<a class="navbar-brand" [routerLink]="['/']" routerLinkActive="active">{{title}}</a>
-		</div>
-		<div class="nav navbar-nav navbar-right">
-			<p *ngIf="(af.auth | async)?.uid" class="navbar-text">Hello user id {{(af.auth | async)?.uid}} </p>
-			<button *ngIf="(af.auth | async)?.uid" type="button" class="btn btn-default navbar-btn" (click)="logout()">Sign Out</button>
-		</div>
-	</div>
+		<ul class="nav navbar-nav float-xs-right">
+			<li *ngIf="(af.auth | async)?.uid" class="nav-item navbar-text">Hello user id {{(af.auth | async)?.uid}} </li>
+			<li class="nav-item">
+                <button *ngIf="(af.auth | async)?.uid" type="button" class="btn btn-outline-success" (click)="logout()">Sign Out</button>
+                </li>
+		</ul>
 </nav>
 <router-outlet></router-outlet>

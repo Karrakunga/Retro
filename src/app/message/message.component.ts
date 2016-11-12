@@ -12,6 +12,7 @@ export class MessageComponent implements OnInit {
   @Input() room;
   messages;
   discussMode = false;
+  
   constructor(private store: RoomStoreService, public auth: AuthService) {
 
   }
@@ -42,4 +43,5 @@ export class MessageComponent implements OnInit {
     this.store.selectMessage(this.message.text, this.message.votes);
     this.message.selected = true;
   }
+  
 }

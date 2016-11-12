@@ -6,13 +6,13 @@
 
 					<input type="text" class="form-control" [(ngModel)]="newColumn">
 					<span class="input-group-btn">
-				<button class="btn btn-default" (click)="addColumn()">+</button>
+				<button class="btn btn-secondary" (click)="addColumn()">+</button>
 			</span>
 				</div>
 			</div>
 			<div class="form-group col-md-3  pull-right">
 				<div *ngIf="!discussMode" class="input-group ">
-					<button class="btn" (click)="setDiscussMode()">Discuss</button>
+					<button class="btn btn-primary" (click)="setDiscussMode()">Discuss</button>
 				</div>
 			</div>
 		</div>
@@ -23,5 +23,7 @@
 	</div>
 </div>
 <div *ngIf="discussMode" class="col-md-3 discuss-bar">
+    <div class="container-fluid">
 	<app-discuss></app-discuss>
+    </div>
 </div>
