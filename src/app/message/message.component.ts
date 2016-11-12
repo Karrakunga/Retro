@@ -7,52 +7,57 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./message.component.scss']
 })
 export class MessageComponent implements OnInit {
-  @Input() message;
-  @Input() column;
-  @Input() room;
-  messages;
+  @Input() messageId;
+  @Input() columnId;
+  @Input() roomId;
+  message;
   discussMode = false;
   dropEnabled = true;
+  votes;
   constructor(private store: RoomStoreService, public auth: AuthService) {
 
   }
 
   ngOnInit() {
-    this.messages = this.store.getMessages(this.room, this.column);
+    this.message = this.store.getMessage(this.roomId, this.columnId, this.messageId);
     this.store.discussMode$.subscribe(next => { this.discussMode = next });
+
+    this.message.subscribe(message => this.votes = message.votes);
   }
 
-merge(){
-  this.dropEnabled = false;
-}
-
-  publish(key: string) {
-    this.messages.update(key, { published: true });
-    this.message.published = true;
+  merge() {
+    this.dropEnabled = false;
   }
 
-  delete(key: string) {
-    this.messages.remove(key);
+  publish() {
+    this.message.update({published: true });
+   // this.message.published = true;
   }
 
-  vote(key: string) {
-    this.messages.update(key, { votes: this.message.votes ? this.message.votes + 1 : this.message.votes = 1 });
+  delete() {
+    this.message.remove();
   }
 
-  updateMessage(key, event) {
-    this.messages.update(key, { text: event });
+  vote() {
+    console.log(this.message);
+    console.log(this.votes);
+    this.message.update({ votes: this.votes ? this.votes + 1 : this.votes = 1 });
   }
 
-  select(key: string) {
+  updateMessage(event) {
+    this.message.update({ text: event });
+  }
+
+  select() {
     this.store.selectMessage(this.message.text, this.message.votes);
-    this.message.selected = true;
+    this.message.update({ selected: true });
   }
 
   dragOver($event, key) {
-    this.messages.update(key, { text: this.message.text + '\n' + $event.dragData.text });
+    this.message.update({ text: this.message.text + '\n' + $event.dragData.text });
   }
 
-  onDragSucess(key){
-     this.messages.remove(key);
+  onDragSucess(key) {
+    this.message.remove();
   }
 }

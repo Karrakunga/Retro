@@ -1,11 +1,11 @@
-<div  dnd-droppable [dropEnabled]="dropEnabled" (onDropSuccess)="dragOver($event, message.$key)"  class="panel-body" [ngClass]="{'selected': message.selected}">
-	<textarea #messageBox [(ngModel)]="message.text" (blur)="updateMessage(message.$key, messageBox.value) " class="form-control"
+<div  dnd-droppable [dropEnabled]="dropEnabled" (onDropSuccess)="dragOver($event, message.$key)"  class="panel-body" [ngClass]="{'selected': (message | async).selected}">
+	<textarea #messageBox [ngModel]="(message | async).text" (blur)="updateMessage(messageBox.value) " class="form-control"
 		rows="3"></textarea>
-	<button *ngIf="!message.published && !discussMode" class="btn" (click)="publish(message.$key)">Publish</button>
-	<button *ngIf="message.published  && !discussMode" class="btn" (click)="vote(message.$key)">Vote</button>
-	<button class="btn" (click)="delete(message.$key)">Delete</button>
-	<button *ngIf="discussMode" class="btn" (click)="select(message.$key)">Select</button>
-	<button dnd-draggable (onDragStart)="merge(message.$key)" (onDragSuccess)="onDragSucess(message.$key)" [dragEnabled]="true" [dragData]="message" 
+	<button *ngIf="!(message | async).published && !discussMode" class="btn" (click)="publish()">Publish</button>
+	<button *ngIf="(message | async).published  && !discussMode" class="btn" (click)="vote(y)">Vote</button>
+	<button class="btn" (click)="delete()">Delete</button>
+	<button *ngIf="discussMode" class="btn" (click)="select()">Select</button>
+	<button dnd-draggable (onDragStart)="merge()" (onDragSuccess)="onDragSucess(message.$key)" [dragEnabled]="true" [dragData]="(message | async)" 
 	 class="btn" >Merge</button>
-	<span class="badge">{{message.votes}}</span>
+	<span class="badge">{{(message | async).votes}}</span>
 </div>

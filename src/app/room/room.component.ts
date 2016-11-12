@@ -24,11 +24,14 @@ export class RoomComponent implements OnInit {
       this.roomName = params['room'];
     });
 
-    this.store.getRoom(this.roomName).subscribe(rooms => {
+    this.store.roomQueryObservable.subscribe(rooms => {
+      console.log("get room sub");
       this.room = rooms[0];
       this.columns = this.store.getColumns(rooms[0].$key);
       this.columns.subscribe((values) => { this.getStreamClass(+values.length) });
     });
+
+     this.store.getRoom(this.roomName);
     
     this.store.discussMode$.subscribe(next => { this.discussMode = next });
   }

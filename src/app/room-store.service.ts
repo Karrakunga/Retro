@@ -5,12 +5,13 @@ import { Observable, Observer, Subject } from 'rxjs/Rx';
 @Injectable()
 export class RoomStoreService {
     private roomFilterSubject = new Subject();
-    private roomQueryObservable = this.af.database.list('/rooms', {
+    public roomQueryObservable = this.af.database.list('/rooms', {
         query: {
             orderByChild: 'name',
             equalTo: this.roomFilterSubject
         }
     });
+    private roomName;
 
     private _discussModeObserver: Observer<boolean>;
     discussMode$: Observable<boolean>;
@@ -18,12 +19,12 @@ export class RoomStoreService {
         this.discussMode$ = new Observable<boolean>(observer => this._discussModeObserver = observer)
             .startWith(false)
             .share();
-            
 
-                    this.roomQueryObservable.subscribe(rooms => {
-            console.log(rooms);
+
+        this.roomQueryObservable.subscribe(rooms => {
+            console.log("sub hitt", rooms);
             if (rooms.length === 0) {
-                this.af.database.list('/rooms/').push({ name: this.roomFilterSubject });
+                this.af.database.list('/rooms/').push({ name: this.roomName });
             }
         });
     }
@@ -35,10 +36,11 @@ export class RoomStoreService {
 
     //  room {id: "121", name: "test"}
     getRoom(room) {
+        this.roomName = room;
         console.log(this.roomQueryObservable);
 
-                this.roomFilterSubject.next(room);
-console.log(this.roomQueryObservable);
+        this.roomFilterSubject.next(room);
+        console.log(this.roomQueryObservable);
         return this.roomQueryObservable;
     }
 
@@ -47,12 +49,21 @@ console.log(this.roomQueryObservable);
         return this.af.database.list(`/columns/${roomId}`);
     }
 
+        // columns/{roomId}/[{id: "121", name:"mad"}]
+    getColumn(roomId, columnId) {
+        return this.af.database.object(`/columns/${roomId}/${columnId}`);
+    }
+
     // messages/{roomId}/{columnId}/[{id: "121", published: true, text: "I am mad", uid: "23232", votes: 2 }]
     getMessages(roomId, columnId) {
         return this.af.database.list(`/messages/${roomId}/${columnId}`);
     }
 
-    deleteColumn(roomId, columnId, key) {
+    getMessage(roomId, columnId, messageId) {
+        return this.af.database.object(`/messages/${roomId}/${columnId}/${messageId}`);
+    }
+
+    deleteColumn(roomId, columnId) {
         this.af.database.list(`/columns/${roomId}`).remove(columnId);
         this.af.database.list(`/messages/${roomId}/${columnId}`).remove();
     }
