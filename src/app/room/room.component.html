@@ -17,8 +17,7 @@
 			</div>
 		</div>
 		<div [ngClass]="columnClass" *ngFor="let column of columns | async">
-			<app-column [column]="column" [room]="room"></app-column>
-
+			<app-column [columnId]="column.$key" [roomId]="room.$key"></app-column>
 		</div>
 	</div>
 </div>

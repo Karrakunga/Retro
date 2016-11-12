@@ -1,16 +1,16 @@
-<div  class="card card-primary card-inverse" [ngClass]="{'selected': message.selected}">
+<div dnd-droppable [dropEnabled]="dropEnabled" (onDropSuccess)="dragOver($event, message.$key)" class="card card-primary card-inverse"
+[ngClass]="{'selected': (message | async).selected}">
     <div class="card-block">
-	<textarea  #messageBox [(ngModel)]="message.text"  (blur)="updateMessage(message.$key, messageBox.value) "
-     class="card-text card-primary form-control" rows="3"></textarea>
-     
+        <textarea #messageBox [ngModel]="(message | async).text" (blur)="updateMessage(messageBox.value) " class="card-text card-primary form-control"
+        rows="3"></textarea>
     </div>
-     <div class="card-footer">
-	<button *ngIf="!message.published && !discussMode" class="btn btn-primary" (click)="publish(message.$key)">Publish</button>
-  <i *ngIf="message.published  && !discussMode" (click)="vote(message.$key)" class="fa fa-arrow-up" aria-hidden="true"></i>
-   <i *ngIf="message.published  && !discussMode" (click)="vote(message.$key)" class="fa fa-arrow-down" aria-hidden="true"></i>
-   
-	<button *ngIf="discussMode"  class="btn btn-primary" (click)="select(message.$key)">Select</button>
-    <span *ngIf="message.published  && !discussMode" class="tag tag-pill tag-default">{{message.votes}}</span>
-     <i class="fa fa-trash-o card-text float-xs-right" aria-hidden="true" (click)="delete(message.$key)"></i>
-</div>
+    <div class="card-footer">
+        <button *ngIf="!(message| async).published && !discussMode" class="btn btn-primary" (click)="publish()">Publish</button>
+        <i *ngIf="(message| async).published  && !discussMode" (click)="vote()" class="fa fa-arrow-up" aria-hidden="true"></i>
+        <i *ngIf="(message| async).published  && !discussMode" (click)="vote()" class="fa fa-arrow-down" aria-hidden="true"></i>
+
+        <button *ngIf="discussMode" class="btn btn-primary" (click)="select()">Select</button>
+        <span *ngIf="(message| async).published  && !discussMode" class="tag tag-pill tag-default">{{(message| async).votes}}</span>
+        <i class="fa fa-trash-o card-text float-xs-right" aria-hidden="true" (click)="delete()"></i>
+    </div>
 </div>

@@ -1,9 +1,9 @@
 <div>
-	<h1>{{column.title}}</h1>
-     <i class="fa fa-trash-o fa-2x" aria-hidden="true" (click)="delete(column.$key, column.title)"></i>
+	<h1>{{(column | async).title}}</h1>
+     <i class="fa fa-trash-o fa-2x" aria-hidden="true" (click)="delete()"></i>
 	<div class="row"><button class="btn btn-primary" (click)="addMessage()"><i class="fa fa-plus" aria-hidden="true"></i></button></div>
-
-	<div *ngFor="let message of messages | async | published" class="panel panel-default">
-		<app-message [message]="message" [column]="column.title" [room]="room"></app-message>
+	<div  
+	 *ngFor="let message of messages | async | published" class="panel panel-default">
+		<app-message [messageId]="message.$key" [columnId]="columnId" [roomId]="roomId"></app-message>
 	</div>
 </div>

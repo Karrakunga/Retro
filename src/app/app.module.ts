@@ -18,6 +18,7 @@ import { AuthService } from './auth.service';
 import { CanActivateViaAuthGuard} from './CanActivateViaAuthGuard';
 
 import { AngularFireModule, AuthProviders, AuthMethods } from 'angularfire2';
+import {DndModule} from 'ng2-dnd';
 import { DiscussComponent } from './discuss/discuss.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
@@ -56,7 +57,8 @@ const myFirebaseAuthConfig = {
     FormsModule,
     HttpModule,
     routing,
-    AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig)
+    AngularFireModule.initializeApp(firebaseConfig, myFirebaseAuthConfig),
+    DndModule.forRoot()
   ],
   providers: [RoomStoreService, CanActivateViaAuthGuard, AuthService],
   bootstrap: [AppComponent]

@@ -8,22 +8,27 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./column.component.scss']
 })
 export class ColumnComponent implements OnInit {
-  @Input() column;
-  @Input() room;
+  @Input() columnId;
+  @Input() roomId;
+  column;
   messages;
   constructor(private store: RoomStoreService, private af: AngularFire, private auth: AuthService) {
   }
 
   ngOnInit() {
-    this.messages = this.store.getMessages(this.room, this.column.title);
+    this.column =  this.store.getColumn(this.roomId, this.columnId);
+    this.messages = this.store.getMessages(this.roomId, this.columnId);
   }
 
   addMessage() {
     this.messages.push({ text: '', votes: 0, published: false, uid: this.auth.uid });
   }
 
-  delete(key: string, title: string) {
-    this.store.deleteColumn(this.room, title, key);
+  delete() {
+    this.store.deleteColumn(this.roomId, this.columnId);
   }
 
+  dragOver($event){
+
+  }
 }
